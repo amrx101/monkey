@@ -147,6 +147,7 @@ func (p *Parser) parseExpressionStatement() *ast.ExpressionStatement {
 
 func (p *Parser) parseExpression(precedence int) *ast.Expression {
 	if prefix, ok := p.prefixParseFns[p.curToken.Type]; !ok {
+		p.noPrefixParseFnError(p.curToken.Type)
 		return nil
 	} else {
 		leftExp := prefix()
@@ -172,4 +173,9 @@ func (p *Parser) parseIntegerLiteral() ast.Expression {
 	lit.Value = value
 	return lit
 
+}
+
+func (p *Parser) noPrefixParseFnError(t token.TokenType) {
+	msg := fmt.Sprintf("no prefix parse fn for %s found", t)
+	p.errors = append(p.errors, msg)
 }
