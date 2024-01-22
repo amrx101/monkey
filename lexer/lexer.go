@@ -6,7 +6,7 @@ import (
 
 type Lexer struct {
 	input        string
-	position     int // index of current read charactyer
+	position     int // index of current read character
 	readPosition int // index of character that is to be read
 	ch           byte
 }
@@ -139,7 +139,7 @@ func newToken(tokenType token.TokenType, ch byte) token.Token {
 }
 
 func isLetter(ch byte) bool {
-	return 'a' <= ch && ch < 'z' || 'A' <= ch && ch <= 'Z' || ch == '_'
+	return 'a' <= ch && ch <= 'z' || 'A' <= ch && ch <= 'Z' || ch == '_'
 }
 
 func LookUpIdent(ident string) token.TokenType {
